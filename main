@@ -1,0 +1,107 @@
+// @version=5
+indicator("Crypto Market Session Analyzer", overlay = true)
+
+//--------------------- Setting EU -------------------- {
+
+// Create new line on first event == EU Session 9.00 am - 17.00 pm UTC + 2
+// European Session color is blue
+
+SettingHourFirst   = input.int(defval = 9, title = "Hour",   minval = 0,    tooltip = "Setting hour EU",      group = "Setting EU Session")
+SettingMinuteFirst = input.int(defval = 0, title = "Minute", minval = 0,    tooltip = "Setting minute EU",    group = "Setting EU Session")
+
+_hFirst = SettingHourFirst      // Default: UTC
+_mFirst = SettingMinuteFirst    // Default: UTC
+
+EuropeanSession  = (hour(time) == _hFirst) and (minute(time) == _mFirst)
+
+var line _firstLine = na
+
+if (EuropeanSession)
+    _firstLine := line.new(bar_index, open, bar_index + 1, open, extend = extend.right, color = color.blue, width = 1)
+    line.delete(_firstLine[1])
+
+SettingHourSec   = input.int(defval = 17, title = "Hour",   minval = 0,    tooltip = "Setting hour EU",      group = "Setting EU Session")
+SettingMinuteSec = input.int(defval =  0, title = "Minute", minval = 0,    tooltip = "Setting minute EU",    group = "Setting EU Session")
+
+_hSecond = SettingHourSec      // Default: UTC
+_mSecond = SettingMinuteSec    // Default: UTC
+
+EuropeanSessionClose  = (hour(time) == _hSecond) and (minute(time) == _mSecond)
+
+var line _secondLine = na
+
+if (EuropeanSessionClose)
+    _secondLine := line.new(bar_index, open, bar_index + 1, open, extend = extend.right, color = color.blue, width = 1)
+    line.delete(_secondLine[1])
+
+// }
+
+//--------------------- Setting USA -------------------- {
+
+// Create new line on first event == USA Session 15.30 pm - 22.00 pm UTC + 2
+// USA session color is orange
+
+HourUSA_first   = input.int(defval = 15, title = "Hour",   minval = 0,    tooltip = "Setting hour USA",      group = "Setting USA Session")
+MinuteUSA_first = input.int(defval = 30, title = "Minute", minval = 0,    tooltip = "Setting minute USA",    group = "Setting USA Session")
+
+_hFirstUSA = HourUSA_first       // Default: UTC
+_mFirstUSA = MinuteUSA_first     // Default: UTC
+
+USA_Session  = (hour(time) == _hFirstUSA) and (minute(time) == _mFirstUSA)
+
+var line _firstLineUSA = na
+
+if (USA_Session)
+    _firstLineUSA := line.new(bar_index, open, bar_index + 1, open, extend = extend.right, color = color.orange, width = 1)
+    line.delete(_firstLineUSA[1])
+
+HourUSA_Sec   = input.int(defval = 22, title = "Hour",   minval = 0,    tooltip = "Setting hour USA",      group = "Setting USA Session")
+MinuteUSA_Sec = input.int(defval = 00, title = "Minute", minval = 0,    tooltip = "Setting minute USA",    group = "Setting USA Session")
+
+_hSecUSA = HourUSA_Sec       // Default: UTC
+_mSecUSA = MinuteUSA_Sec    // Default: UTC
+
+USA_SessionClose  = (hour(time) == _hSecUSA) and (minute(time) == _mSecUSA)
+
+var line _secondLineUSA = na
+
+if (USA_SessionClose)
+    _secondLineUSA := line.new(bar_index, open, bar_index + 1, open, extend = extend.right, color = color.orange, width = 1)
+    line.delete(_secondLineUSA[1])
+
+// }
+
+//--------------------- Setting ASIA -------------------- {
+
+// Create new line on first event == ASIA Session 23.00 pm - 10.00 am UTC + 2
+// ASIA session color is purple
+
+HourASIA_first   = input.int(defval = 10, title = "Hour",   minval = 0,    tooltip = "Setting hour ASIA",      group = "Setting ASIA Session")
+MinuteASIA_first = input.int(defval = 00, title = "Minute", minval = 0,    tooltip = "Setting minute ASIA",    group = "Setting ASIA Session")
+
+_hFirstASIA = HourASIA_first      // Default: UTC
+_mFirstASIA = MinuteASIA_first    // Default: UTC
+
+ASIA_Session  = (hour(time) == _hFirstASIA) and (minute(time) == _mFirstASIA)
+
+var line _firstLineASIA = na
+
+if (ASIA_Session)
+    _firstLineASIA := line.new(bar_index, open, bar_index + 1, open, extend = extend.right, color = color.purple, width = 1)
+    line.delete(_firstLineASIA[1])
+
+HourASIA_Sec   = input.int(defval = 23, title = "Hour",   minval = 0,     tooltip = "Setting hour ASIA",       group = "Setting ASIA Session")
+MinuteASIA_Sec = input.int(defval = 0,  title = "Minute", minval = 0,     tooltip = "Setting minute ASIA",     group = "Setting ASIA Session")
+
+_hSecASIA = HourASIA_Sec       // Default: UTC
+_mSecASIA = MinuteASIA_Sec     // Default: UTC
+
+ASIA_SessionClose  = (hour(time) == _hSecUSA) and (minute(time) == _mSecUSA)
+
+var line _secondLineASIA = na
+
+if (ASIA_SessionClose)
+    _secondLineASIA := line.new(bar_index, open, bar_index + 1, open, extend = extend.right, color = color.purple, width = 1)
+    line.delete(_secondLineASIA[1])
+
+// }
